@@ -11,7 +11,7 @@ int* sumOnePtrInt(int *ptr);
 
 int main(void) {
 
-    testGets();
+    testSamplePtr();
 
     return 0;
 }
