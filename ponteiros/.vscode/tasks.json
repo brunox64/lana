@@ -11,7 +11,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}.bin"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

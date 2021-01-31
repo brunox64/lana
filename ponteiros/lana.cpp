@@ -17,7 +17,7 @@ public:
     }
 
     const char* what() const throw() {
-        return msg;
+        return this->msg;
     }
 };
 
