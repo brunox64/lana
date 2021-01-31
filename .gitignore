@@ -1,7 +1,3 @@
+lana
+*dSYM
 *.bin
-**/*.bin
-*.dSYM
-**/*.dSYM
-
-*.DS_Store
-**/*.DS_Store
