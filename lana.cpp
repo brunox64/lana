@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
         }
 
         for (auto iter = listOfIndexesByGroupId[0].begin(); iter != listOfIndexesByGroupId[0].end(); iter++) {
-            string groupId = (*iter).first;
+            const string& groupId = (*iter).first;
             vector<int>& indexes = (*iter).second;
 
             for (int index = 1; index < listOfIndexesByGroupId.size(); index++) {
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 
         vector<string> groupIds;
         for (auto iter : listOfIndexesByGroupId[0]) {
-            string groupId = iter.first;
+            const string& groupId = iter.first;
             vector<int>& indexes = iter.second;
 
             bool foundSearch = false;
@@ -229,7 +229,7 @@ void addToGroup(int index, string& line, map<string,vector<int> >& groupMap, reg
     
     smatch smatch;
     if (regex_search(line, smatch, regexGroup) && smatch.size() > groupIndex) {
-        string groupId = smatch[groupIndex].str();
+        const string& groupId = smatch[groupIndex].str();
 
         auto iter = groupMap.find(groupId);
         if (iter == groupMap.end()) {
