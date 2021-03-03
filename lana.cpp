@@ -4,10 +4,12 @@
 #include <vector>
 #include <list>
 #include <map>
-#include "lana.h"
 
 using namespace std;
 
+vector<regex>* compilarRegexList(list<string>& regexList);
+void addCrossRefLines(vector<int>& indexes, map<string,vector<int> >& groupMap);
+void addToGroup(int index, string& line, map<string,vector<int> >& groupMap, regex& regexGroup, int groupIndex);
 
 class Error : public exception {
 private:
@@ -63,7 +65,7 @@ int main(int argc, char** argv) {
 
     try {
         if (regexGroups->size() <= 0) {
-            throw new Error("é necessáiro informar 1 ou mais grupos!");
+            throw Error("é necessáiro informar 1 ou mais grupos!");
         }
 
         vector<string> lines;
@@ -183,7 +185,7 @@ int main(int argc, char** argv) {
             cout << divider << endl;
         }
     } catch (Error& error) {
-        cerr << error.what() << endl;
+        cout << error.what() << endl;
         return 1;
     }
 
@@ -243,9 +245,41 @@ void addToGroup(int index, string& line, map<string,vector<int> >& groupMap, reg
 
 vector<regex>* compilarRegexList(list<string>& regexList) {
     vector<regex> *regexListComp = new vector<regex>();
+    
+    regex regexStart("^/");
+    regex regexEnd("/([igm]+)$", regex_constants::icase);
+    
+    string from("I");
+    string to("i");
+    string barra("/");
 
-    for (string& r : regexList) {
-        regexListComp->push_back( * new regex( r ) );
+    smatch sm;
+
+    for (string& reg : regexList) {
+
+        if (regex_search(reg, sm, regexStart) && regex_search(reg, sm, regexEnd)) {
+            string regstr = reg;
+            int indexStart = regstr.find_first_of(barra)+1;
+            int indexEnd = regstr.find_last_of(barra);
+            
+            regstr = regstr.substr(indexStart, indexEnd - indexStart);
+
+            string flags = sm[1].str();
+
+            for (int i = 0; i < flags.length(); i++) {
+                if (flags[i] == from[0]) {
+                    flags[i] = to[0];
+                }
+            }
+            
+            if (flags.find(to) != string::npos) {
+                regexListComp->push_back( * new regex( regstr, regex_constants::icase ) );
+            } else {
+                regexListComp->push_back( * new regex( regstr ) );
+            }
+        } else {
+            throw Error(string("Regex: " + reg + " é inválida").c_str());
+        }
     }
 
     return regexListComp;

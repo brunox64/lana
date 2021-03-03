@@ -16,6 +16,8 @@ sources := $(wildcard *.cpp)
 files := $(foreach file,$(sources),$(dir $(file))/$(basename $(file)))
 objects := $(foreach file,$(files),$(file).o)
 
+all : clean lana
+
 lana : $(objects)
 	$(CXX) $^ -o $@$(extension)
 
