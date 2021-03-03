@@ -1,4 +1,6 @@
-lana
+*.DS_Store
 *dSYM
 *.bin
 *.exe
+*.o
+lana

@@ -1,6 +1,13 @@
 
 CXX := clang++
-CXXFLAGS := -std=c++17 -stdlib=libc++ -g
+CXXFLAGS += -std=c++17 -stdlib=libc++
 
-lana.bin : $(wildcard *.cpp)
-	$(CXX) $(CXXFLAGS) $(wildcard *.cpp) -o $@
+sources := $(wildcard *.cpp)
+files := $(foreach file,$(sources),$(dir $(file))/$(basename $(file)))
+objects := $(foreach file,$(files),$(file).o)
+
+lana : $(objects)
+	$(CXX) $^ -o $@.bin
+
+$(objects) :
+	$(CXX) $(CXXFLAGS) -c $(sources)
