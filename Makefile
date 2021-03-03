@@ -11,3 +11,7 @@ lana : $(objects)
 
 $(objects) :
 	$(CXX) $(CXXFLAGS) -c $(sources)
+
+clean:
+	rm -f *.o
+	rm -rf *.dSYM
