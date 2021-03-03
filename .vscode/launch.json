@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
             "args": [
-              "-g0", "/abc/IGM"
+              "-find-req", "bruno", "-f", "~/Downloads/stdout-2021-03-02-1.log"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

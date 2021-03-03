@@ -19,7 +19,7 @@ objects := $(foreach file,$(files),$(file).o)
 all : clean lana
 
 lana : $(objects)
-	$(CXX) $^ -o $@$(extension)
+	$(CXX) $^ -o $@
 
 $(objects) :
 	$(CXX) $(CXXFLAGS) -c $(sources)
@@ -27,8 +27,10 @@ $(objects) :
 ifeq ($(OS),Windows_NT)
 clean:
 	del *.o /q /s
+	del "lana" /q /s
 else
 clean:
 	rm -f *.o
 	rm -rf *.dSYM
+	rm -f "lana"
 endif
