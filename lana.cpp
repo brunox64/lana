@@ -4,8 +4,7 @@
 #include <vector>
 #include <list>
 #include <map>
-
-#include "lana-2.h"
+#include "lana.h"
 
 using namespace std;
 
@@ -23,9 +22,6 @@ public:
         return this->msg;
     }
 };
-
-void addCrossRefLines(vector<int>& indexes, map<string,vector<int> >& groupMap);
-void addToGroup(int index, string& line, map<string,vector<int> >& groupMap, regex& regexGroup, int groupIndex);
 
 int main(int argc, char** argv) {
 
@@ -243,4 +239,14 @@ void addToGroup(int index, string& line, map<string,vector<int> >& groupMap, reg
             indexes.push_back(index);
         }
     }
+}
+
+vector<regex>* compilarRegexList(list<string>& regexList) {
+    vector<regex> *regexListComp = new vector<regex>();
+
+    for (string& r : regexList) {
+        regexListComp->push_back( * new regex( r ) );
+    }
+
+    return regexListComp;
 }

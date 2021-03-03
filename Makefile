@@ -1,7 +1,7 @@
 
 extension := .bin
 
-$(info plataform: $(OS))
+$(info plataforma: $(OS))
 
 ifeq ($(OS),Windows_NT)
 	CXX := g++
@@ -22,6 +22,11 @@ lana : $(objects)
 $(objects) :
 	$(CXX) $(CXXFLAGS) -c $(sources)
 
+ifeq ($(OS),Windows_NT)
+clean:
+	del *.o /q /s
+else
 clean:
 	rm -f *.o
 	rm -rf *.dSYM
+endif
