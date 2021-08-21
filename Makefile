@@ -1,36 +1,17 @@
 
-extension := .bin
+CXX := clang++
+CXXFLAGS := -std=c++17 -stdlib=libc++
 
-$(info plataforma: $(OS))
+all : teste.cpp testef.hpp
+	$(CXX) $(CXXFLAGS) -c testef.cpp -o testef.o
+	$(CXX) $(CXXFLAGS) testef.o teste.cpp -o teste.bin
 
-ifeq ($(OS),Windows_NT)
-	CXX := g++
-	CXXFLAGS += -std=c++17
-	extension := .exe
-else
-	CXX := clang++
-	CXXFLAGS += -std=c++17 -stdlib=libc++
-endif
+clean: testef.o teste.bin
+	rm -f testef.o
+	rm -f teste.bin
 
-sources := $(wildcard *.cpp)
-files := $(foreach file,$(sources),$(dir $(file))/$(basename $(file)))
-objects := $(foreach file,$(files),$(file).o)
+lana : lana.cpp
+	$(CXX) $(CXXFLAGS) lana.cpp -o lana.bin
 
-all : clean lana
-
-lana : $(objects)
-	$(CXX) $^ -o $@
-
-$(objects) :
-	$(CXX) $(CXXFLAGS) -c $(sources)
-
-ifeq ($(OS),Windows_NT)
-clean:
-	del *.o /q /s
-	del "lana" /q /s
-else
-clean:
-	rm -f *.o
-	rm -rf *.dSYM
-	rm -f "lana"
-endif
+lana-clean :
+	rm -rf lana.bin

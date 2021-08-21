@@ -47,6 +47,9 @@
         "map": "cpp",
         "ostream": "cpp",
         "istream": "cpp",
-        "fstream": "cpp"
-    }
+        "fstream": "cpp",
+        "__tree": "cpp",
+        "stack": "cpp"
+    },
+    "editor.fontSize": 16
 }
